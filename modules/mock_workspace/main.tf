@@ -12,11 +12,6 @@ module "server_sg" {
   }]
   ingress_with_cidr_blocks = [
     {
-      description = "Citrix environment RDP ingress"
-      rule        = "rdp-tcp"
-      cidr_blocks = "10.220.115.0/24"
-    },
-    {
       description = "Allow all intra-vpc traffic"
       rule        = "all-all"
       cidr_blocks = data.aws_vpc.this.cidr_block

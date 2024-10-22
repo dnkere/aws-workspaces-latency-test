@@ -1,8 +1,4 @@
-module "aws_workspaces" {
-  source = "terraform-aws-modules/workspaces/aws"
-  version = "~> 5.72.1"
-
-  resource "aws_workspaces_workspace" "latency_test_workspace" {
+resource "aws_workspaces_workspace" "latency_test_workspace" {
   directory_id = module.directory.directory_id
   bundle_id    = data.aws_workspaces_bundle.value_windows_10.id
   user_name    = "workspace-user"
@@ -22,6 +18,5 @@ module "aws_workspaces" {
   tags = {
     Name = "latency-test-workspace"
   }
-}
 }
 

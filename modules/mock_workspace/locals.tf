@@ -13,3 +13,6 @@ locals {
   name   = "dbfreedom"
   vpc_id = data.aws_subnet.this[0].vpc_id
 }
+locals {
+  name = "latency-test-workspace"
+}
