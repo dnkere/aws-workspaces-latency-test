@@ -1,18 +1,7 @@
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "~> 5.72.1"
-    }
-  }
-}
 
 resource "aws_workspaces_directory" "latency_test_directory" {
-  directory_id = module.aws_workspaces_directory.id
-  subnet_ids = [
-    module.use1_vpc.private_subnets[0],
-    module.use1_vpc.private_subnets[1]
-  ]
+  directory_id = aws_directory_service_directory.latency_test_directory.id
+  subnet_ids   = var.subnet_ids
 
   tags = {
     Name = "latency-test-directory"
@@ -38,15 +27,14 @@ resource "aws_workspaces_directory" "latency_test_directory" {
   }
 
   workspace_creation_properties {
-    custom_security_group_id            = module.server_sg.security_group_id
-    default_ou                          = "latency-test-ou"
+    custom_security_group_id            = aws_security_group.workspace_sg.id
     enable_internet_access              = true
     enable_maintenance_mode             = true
     user_enabled_as_local_administrator = true
   }
 
   depends_on = [
-    module.server_sg,
+    aws_security_group.workspace_sg,
   ]
 }
 
@@ -56,11 +44,8 @@ resource "aws_directory_service_directory" "latency_test_directory" {
   size     = "Small"
 
   vpc_settings {
-    vpc_id = module.use1_vpc.vpc_id
-    subnet_ids = [
-      module.use1_vpc.private_subnets[0],
-      module.use1_vpc.private_subnets[1]
-    ]
+    vpc_id = data.aws_vpc.this.id
+    subnet_ids = var.subnet_ids
   }
 }
 
@@ -75,17 +60,40 @@ data "aws_iam_policy_document" "workspaces" {
   }
 }
 
-resource "aws_iam_role" "workspaces_default" {
-  name               = "workspaces_DefaultRole"
-  assume_role_policy = data.aws_iam_policy_document.workspaces.json
-}
+# resource "aws_iam_role" "workspaces_default" {
+#   name               = "workspaces_DefaultRole"
+#   assume_role_policy = data.aws_iam_policy_document.workspaces.json
+# }
 
-resource "aws_iam_role_policy_attachment" "workspaces_default_service_access" {
-  role       = aws_iam_role.workspaces_default.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonWorkSpacesServiceAccess"
-}
+# resource "aws_iam_role_policy_attachment" "workspaces_default_service_access" {
+#   role       = aws_iam_role.workspaces_default.name
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonWorkSpacesServiceAccess"
+# }
 
-resource "aws_iam_role_policy_attachment" "workspaces_default_self_service_access" {
-  role       = aws_iam_role.workspaces_default.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonWorkSpacesSelfServiceAccess"
+# resource "aws_iam_role_policy_attachment" "workspaces_default_self_service_access" {
+#   role       = aws_iam_role.workspaces_default.name
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonWorkSpacesSelfServiceAccess"
+# }
+
+resource "aws_security_group" "workspace_sg" {
+  vpc_id = data.aws_vpc.this.id
+  name = "workspace-sg"
+  description = "Security group for workspace"
+  tags = {
+    Name = "workspace-sg"
+  }
+
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }

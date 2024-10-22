@@ -3,3 +3,9 @@ variable "global_tags" {
   type        = map(string)
   default     = {}
 }
+variable "directory_password" {
+  description = "The password for the directory."
+  type        = string
+  default     = "Password1234"
+}
+

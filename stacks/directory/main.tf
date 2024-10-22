@@ -1,17 +1,26 @@
-module "directory" {
-  source = "/Users/daiquannkere/src/Tapestry/aws-workspaces-latency-test/modules/directory"
+module "use1_directory" {
+  source = "../../modules/directory"
   providers = {
     aws = aws.use1
   }
+  
   directory_password = var.directory_password
-  subnet_ids         = module.use1_vpc.private_subnets
+  subnet_ids         = [
+    data.terraform_remote_state.networking_stack.outputs.use1_private_subnets[0],
+    data.terraform_remote_state.networking_stack.outputs.use1_private_subnets[1]
+  ]
+  vpc_id             = data.terraform_remote_state.networking_stack.outputs.use1_vpc_id
 }
 
 module "apse1_directory" {
-  source = "/Users/daiquannkere/src/Tapestry/aws-workspaces-latency-test/modules/directory"
+  source = "../../modules/directory"
   providers = {
     aws = aws.apse1
   }
   directory_password = var.directory_password
-  subnet_ids         = module.apse1_vpc.private_subnets
+  subnet_ids         = [
+    data.terraform_remote_state.networking_stack.outputs.apse1_private_subnets[0],
+    data.terraform_remote_state.networking_stack.outputs.apse1_private_subnets[1]
+  ]
+  vpc_id             = data.terraform_remote_state.networking_stack.outputs.apse1_vpc_id
 }
