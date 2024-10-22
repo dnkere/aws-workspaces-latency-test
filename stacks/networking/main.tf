@@ -18,8 +18,8 @@ module "use1_vpc" {
     "10.87.6.0/23",
   ]
   azs = [
-    "use1-az1",
-    "use1-az2",
+    "use1-az4",
+    "use1-az6",
   ]
   enable_dns_hostnames   = true
   enable_nat_gateway     = true
@@ -67,15 +67,15 @@ module "apse1_vpc" {
   cidr = "10.90.0.0/20"
   public_subnets = [
     "10.90.0.0/23",
-    # "10.90.2.0/23",
+    "10.90.2.0/23",
   ]
   private_subnets = [
     "10.90.4.0/23",
-    # "10.90.6.0/23",
+    "10.90.6.0/23",
   ]
   azs = [
     "apse1-az1",
-    # "apse1-az2",
+    "apse1-az2",
   ]
   enable_dns_hostnames   = true
   enable_nat_gateway     = true
