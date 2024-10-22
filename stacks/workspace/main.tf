@@ -4,5 +4,8 @@ module "use1_mock_workspace" {
     aws = aws.use1
   }
 
+  subnet_ids = module.use1_vpc.private_subnets
+
   # Variables
 }
+

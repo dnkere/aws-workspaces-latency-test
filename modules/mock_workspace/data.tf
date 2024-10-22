@@ -1,10 +1,9 @@
 data "aws_vpc" "this" {
-  id = data.aws_subnet.this[0].vpc_id
+  id = module.use1_vpc.vpc_id
 }
 
 data "aws_subnet" "this" {
-  count = length(var.subnet_ids)
-  id    = var.subnet_ids[count.index]
+  id = module.use1_vpc.private_subnets[0]
 }
 
 data "aws_ssm_parameter" "windows_server" {
