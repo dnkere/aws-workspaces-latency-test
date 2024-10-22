@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.72.1"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
   alias  = "use1"
@@ -26,7 +35,7 @@ provider "aws" {
 }
 
 terraform {
-  required_version = "~> 1.7"
+  required_version = "~> 1.6.6"
 
   backend "s3" {
     bucket         = "aws-workspaces-latency-test20241017161752423400000001"

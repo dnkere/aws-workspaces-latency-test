@@ -1,7 +1,13 @@
-module "aws_workspaces_directory" {
-  source = "terraform-aws-modules/workspaces-directory/aws"
-  version = "~> 5.72.1"
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 5.72.1"
+    }
+  }
+}
 
+resource "aws_workspaces_directory" "latency_test_directory" {
   directory_id = module.aws_workspaces_directory.id
   subnet_ids = [
     module.use1_vpc.private_subnets[0],

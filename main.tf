@@ -41,3 +41,8 @@ module "ap_southeast_1" {
   ami_ap_southeast_1     = var.ami_ap_southeast_1
   workspace_bundle_id_ap_southeast_1 = var.workspace_bundle_id_ap_southeast_1
 }
+
+module "directory" {
+  source = "./modules/directory"
+  directory_password = var.directory_password
+}

@@ -26,7 +26,7 @@ provider "aws" {
 }
 
 terraform {
-  required_version = "~> 1.7"
+  required_version = "~> 1.6.6"
 
   backend "s3" {
     bucket         = "aws-workspaces-latency-test20241017161752423400000001"
