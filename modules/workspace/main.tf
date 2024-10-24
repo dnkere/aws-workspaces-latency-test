@@ -1,17 +1,4 @@
 resource "aws_workspaces_workspace" "latency_test_workspace" {
-<<<<<<< HEAD
-  directory_id = module.directory.directory_id
-  bundle_id    = data.aws_workspaces_bundle.value_windows_10.id
-  user_name    = "workspace-user"
-
-  root_volume_encryption_enabled = true
-  user_volume_encryption_enabled = true
-  volume_encryption_key          = data.aws_kms_key.workspaces.arn
-
-  workspace_properties {
-    compute_type_name                         = "VALUE"
-    user_volume_size_gib                      = 10
-=======
   directory_id = var.directory_id
   bundle_id    = var.bundle_id
   user_name    = var.user_name
@@ -22,19 +9,11 @@ resource "aws_workspaces_workspace" "latency_test_workspace" {
   workspace_properties {
     compute_type_name                         = "STANDARD"
     user_volume_size_gib                      = 50
->>>>>>> 30267b8 (latest)
     root_volume_size_gib                      = 80
     running_mode                              = "AUTO_STOP"
     running_mode_auto_stop_timeout_in_minutes = 60
   }
 
-<<<<<<< HEAD
-  tags = {
-    Name = "latency-test-workspace"
-  }
-}
-
-=======
   tags = var.global_tags
 }
 
@@ -122,4 +101,3 @@ resource "aws_ssm_association" "add_ad_user" {
     OUPath      = "OU=Users,OU=Tapestry,OU=AWS,OU=Tapestry,DC=tapestry,DC=com"
   }
 }
->>>>>>> 30267b8 (latest)

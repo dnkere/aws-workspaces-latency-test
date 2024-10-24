@@ -4,14 +4,6 @@ terraform {
       source = "hashicorp/aws"
       version = "5.73.0"
     }
-    ingress = {
-      source = "terraform-aws-modules/security-group/aws"
-      version = "5.1.2"
-    }
-    instance = {
-      source = "terraform-aws-modules/ec2-instance/aws"
-      version = "~> 5.7"
-    }
   }
 }
 

@@ -4,8 +4,6 @@ data "aws_workspaces_bundle" "value_windows_10" {
 data "aws_kms_key" "workspaces" {
   key_id = "alias/aws/workspaces"
 }
-<<<<<<< HEAD
-=======
 
 data "aws_directory_service_directory" "latency_test_directory" {
   directory_id = var.directory_id
@@ -29,4 +27,3 @@ data "aws_vpc" "vpc_id" {
 
 
 
->>>>>>> 30267b8 (latest)

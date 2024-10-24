@@ -1,20 +1,4 @@
 variable "directory_id" {
-<<<<<<< HEAD
-  description = "The ID of the directory"
-  type        = string
-}
-
-variable "bundle_id" {
-  description = "The ID of the bundle"
-  type        = string
-}
-
-variable "user_name" {
-  description = "The name of the user"
-  type        = string
-}
-
-=======
   type        = string
   description = "The ID of the directory for the WorkSpace"
 }
@@ -80,4 +64,3 @@ variable "surname" {
   description = "The last name of the workspace user"
   default     = "User"
 }
->>>>>>> 30267b8 (latest)
