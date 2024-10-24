@@ -11,6 +11,7 @@ module "us_east_1" {
   workspace_user_name    = var.workspace_user_name
   ami_us_east_1          = var.ami_us_east_1
   workspace_bundle_id_us_east_1 = var.workspace_bundle_id_us_east_1
+  
 
 }
 
