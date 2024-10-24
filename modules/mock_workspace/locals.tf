@@ -1,18 +1,24 @@
 locals {
-  instance_permission_policies = setunion(
-    toset([
-      "AmazonSSMDirectoryServiceAccess",
+  instance_permission_policies = {
+    use1  = [ "AmazonSSMDirectoryServiceAccess",
       "AmazonSSMManagedInstanceCore",
       "AWSAccelerator-SessionManagerLogging",
       "CloudWatchAgentServerPolicy",
-      "AmazonS3ReadOnlyAccess",
-    ]),
-    var.instance_permission_policies
-  )
+      "AmazonS3ReadOnlyAccess",]  // Replace with actual policies
+    usw2  = [ "AmazonSSMDirectoryServiceAccess",
+      "AmazonSSMManagedInstanceCore",
+      "AWSAccelerator-SessionManagerLogging",
+      "CloudWatchAgentServerPolicy",
+      "AmazonS3ReadOnlyAccess",]
+    apse1 = [ "AmazonSSMDirectoryServiceAccess",
+      "AmazonSSMManagedInstanceCore",
+      "AWSAccelerator-SessionManagerLogging",
+      "CloudWatchAgentServerPolicy",
+      "AmazonS3ReadOnlyAccess",]
+  }
 
-  name   = "dbfreedom"
-  vpc_id = data.aws_subnet.this[0].vpc_id
+  name   = "mock-workspace"
 }
-locals {
-  name = "latency-test-workspace"
-}
+
+  
+
