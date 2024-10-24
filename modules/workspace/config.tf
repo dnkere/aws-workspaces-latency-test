@@ -26,11 +26,7 @@ provider "aws" {
 }
 
 terraform {
-<<<<<<< HEAD
-  required_version = "~> 1.7"
-=======
-  required_version = "1.6.6"
->>>>>>> 30267b8 (latest)
+  required_version = "~> 1.6.6"
 
   backend "s3" {
     bucket         = "aws-workspaces-latency-test20241017161752423400000001"
@@ -40,3 +36,6 @@ terraform {
     dynamodb_table = "aws-workspaces-latency-test"
   }
 }
+
+# pip3 install boto3
+# pip3 install awscli

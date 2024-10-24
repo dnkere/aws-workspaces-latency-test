@@ -1,3 +1,20 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.73.0"
+    }
+    ingress = {
+      source = "terraform-aws-modules/security-group/aws"
+      version = "5.1.2"
+    }
+    instance = {
+      source = "terraform-aws-modules/ec2-instance/aws"
+      version = "~> 5.7"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
   alias  = "use1"
@@ -26,15 +43,11 @@ provider "aws" {
 }
 
 terraform {
-<<<<<<< HEAD
-  required_version = "~> 1.7"
-=======
-  required_version = "1.6.6"
->>>>>>> 30267b8 (latest)
+  required_version = "~> 1.6.6"
 
   backend "s3" {
     bucket         = "aws-workspaces-latency-test20241017161752423400000001"
-    key            = "workspace/terraform.tfstate"
+    key            = "mock-workspace-ec2/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = "true"
     dynamodb_table = "aws-workspaces-latency-test"

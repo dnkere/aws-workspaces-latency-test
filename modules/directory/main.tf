@@ -42,6 +42,10 @@ resource "aws_directory_service_directory" "latency_test_directory" {
   name     = "corp.latency.com"
   password = var.directory_password
   size     = "Small"
+<<<<<<< HEAD
+=======
+  type     = "MicrosoftAD"
+>>>>>>> 30267b8 (latest)
 
   vpc_settings {
     vpc_id = data.aws_vpc.this.id
