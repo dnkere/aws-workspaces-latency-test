@@ -20,5 +20,9 @@ locals {
   name   = "mock-workspace"
 }
 
+locals {
+  aws_instance_id = aws_instance.mock_workspace.id
+}
+
   
 

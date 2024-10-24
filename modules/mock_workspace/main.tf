@@ -1,13 +1,23 @@
-resource "aws_security_group" "server_sg" {
-  name = "${var.name}-server-sg"
-  vpc_id = var.vpc_id
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_instance" "mock_workspace" {
+  ami           = data.aws_ami.latest_windows.id
+  instance_type = var.instance_type
+  subnet_id     = var.subnet_id
+
+  vpc_security_group_ids = [aws_security_group.server_sg.id]
+
+  tags = merge(
+    var.global_tags,
+    {
+      Name = "MockWorkspace-sg"
+    }
+  )
+}
+
+resource "aws_security_group" "server_sg" {
+  name        = "mock-workspace-server-sg"
+  description = "Security group for mock workspace server"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 0
@@ -16,10 +26,15 @@ resource "aws_security_group" "server_sg" {
     cidr_blocks = var.ingress_cidr_blocks
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = var.global_tags
 }
-
-
 
 # module "server_sg" {
 #   source  = "terraform-aws-modules/security-group/aws"
@@ -62,14 +77,6 @@ resource "aws_security_group" "server_sg" {
 #     volume_size = 30
 #   }]
 # }
-
-resource "aws_instance" "mock_workspace" {
-  ami = data.aws_ssm_parameter.windows_server.value
-  instance_type = var.instance_type
-  subnet_id = var.subnet_id
-  vpc_security_group_ids = [aws_security_group.server_sg.id]
-  tags = var.global_tags
-}
 
 data "terraform_remote_state" "networking_stack" {
   backend = "s3"

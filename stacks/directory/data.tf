@@ -9,8 +9,5 @@ data "terraform_remote_state" "networking_stack" {
 }
 
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 30267b8 (latest)

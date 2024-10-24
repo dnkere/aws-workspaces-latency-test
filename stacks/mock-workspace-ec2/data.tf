@@ -8,4 +8,32 @@ data "terraform_remote_state" "networking_stack" {
   }
 }
 
+data "aws_ami" "latest_windows_use1" {
+  most_recent = true
+  owners      = ["amazon"]
 
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2019-English-Full-Base-*"]
+  }
+}
+
+data "aws_ami" "latest_windows_usw2" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2022-English-Full-Base-*"]
+  }   
+}
+
+data "aws_ami" "latest_windows_apse1" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2022-English-Full-Base-*"]
+  }
+}

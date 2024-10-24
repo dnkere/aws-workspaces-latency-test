@@ -1,4 +1,6 @@
 output "instance_id" {
-  value = module.mock_workspace.id
+  value = aws_instance.mock_workspace.id
 }
+
+
 

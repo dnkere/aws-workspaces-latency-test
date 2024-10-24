@@ -1,8 +1,12 @@
-
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
   default     = "t3a.xlarge"
+}
+
+variable "instance_id" {
+  description = "EC2 instance ID"
+  type        = string
 }
 
 variable "vpc_id" {
@@ -43,11 +47,6 @@ variable "instance_permission_policies" {
   }
 }
 
-variable "ami" {
-  description = "AMI"
-  type        = string
-  default     = null
-}
 
 variable "name" {
   description = "Name"
@@ -56,16 +55,22 @@ variable "name" {
 }
 
 variable "ingress_cidr_blocks" {
-  description = "The ingress cidr blocks for the security group"
+  description = "List of CIDR blocks for ingress"
   type        = list(string)
-}
-
-variable "region" {
-  description = "The region of the workspace"
-  type        = string
 }
 
 variable "global_tags" {
   description = "The global tags"
   type        = map(string)
 }
+
+variable "policy_names" {
+  description = "List of IAM policy names"
+  type        = list(string)
+  default     = ["AmazonSSMDirectoryServiceAccess",
+      "AmazonSSMManagedInstanceCore",
+      "AWSAccelerator-SessionManagerLogging",
+      "CloudWatchAgentServerPolicy",
+      "AmazonS3ReadOnlyAccess"]
+}
+
